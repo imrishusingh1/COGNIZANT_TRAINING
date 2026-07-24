@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--
+        Exercise 1: Basic Spring Application - Define beans for BookService and BookRepository
+        Exercise 5: Configuring the Spring IoC Container
+    -->
+
+    <!-- BookRepository bean -->
+    <bean id="bookRepository" class="com.library.repository.BookRepository"/>
+
+    <!--
+        Exercise 2: Dependency Injection - Setter injection (wire BookRepository into BookService)
+        Exercise 7: Setter Injection
+    -->
+    <bean id="bookService" class="com.library.service.BookService">
+        <!-- Setter injection -->
+        <property name="bookRepository" ref="bookRepository"/>
+    </bean>
+
+    <!--
+        Exercise 7: Constructor Injection variant
+    -->
+    <bean id="bookServiceConstructor" class="com.library.service.BookService">
+        <!-- Constructor injection -->
+        <constructor-arg ref="bookRepository"/>
+    </bean>
+
+    <!--
+        Exercise 3 & 8: AOP - Enable AspectJ auto-proxying and register logging aspect
+    -->
+    <aop:aspectj-autoproxy/>
+    <bean id="loggingAspect" class="com.library.aspect.LoggingAspect"/>
+
+    <!--
+        Exercise 6: Component Scanning (annotation-based configuration)
+        Uncomment to use annotations instead of XML bean definitions:
+    -->
+    <!-- <context:component-scan base-package="com.library"/> -->
+
+</beans>

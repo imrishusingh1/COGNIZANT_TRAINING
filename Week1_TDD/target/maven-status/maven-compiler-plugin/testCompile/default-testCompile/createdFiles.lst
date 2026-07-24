@@ -1,0 +1,4 @@
+com\example\calculator\CalculatorTest.class
+com\example\AssertionsTest.class
+com\example\external\MyServiceTest.class
+com\example\service\GreetingServiceTest.class

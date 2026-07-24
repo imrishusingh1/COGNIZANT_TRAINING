@@ -1,0 +1,6 @@
+com\example\service\GreetingService.class
+com\example\external\MyService.class
+com\example\service\MessageSender.class
+com\example\logging\LoggingExample.class
+com\example\calculator\Calculator.class
+com\example\external\ExternalApi.class

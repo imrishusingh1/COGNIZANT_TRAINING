@@ -1,0 +1,66 @@
+<div class="student-list-container">
+  <h2>Student Management</h2>
+
+  <div class="filters card">
+    <div class="filter-row">
+      
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search by name or email..." />
+
+      <select [(ngModel)]="selectedCourse" (change)="loadStudents()">
+        <option *ngFor="let course of courses" [value]="course">{{ course }}</option>
+      </select>
+
+      <label>
+        <input type="checkbox" [(ngModel)]="showActive" /> Active Only
+      </label>
+
+      <a routerLink="/students/new" class="btn btn-success">+ Add Student</a>
+    </div>
+  </div>
+
+  <div *ngIf="filteredStudents.length === 0" class="no-data">
+    No students found.
+  </div>
+
+  <table *ngIf="filteredStudents.length > 0">
+    <thead>
+      <tr>
+        <th (click)="sortBy('id')">#</th>
+        <th (click)="sortBy('name')">Name ↑</th>
+        <th (click)="sortBy('email')">Email</th>
+        <th (click)="sortBy('course')">Course</th>
+        <th>Grade</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr *ngFor="let student of filteredStudents; let i = index"
+          [ngClass]="{ 'inactive-row': !student.active }">
+        <td>{{ i + 1 }}</td>
+        
+        <td>{{ student.name | uppercase }}</td>
+        <td>{{ student.email }}</td>
+        
+        <td>{{ student.course | titlecase }}</td>
+        <td>{{ student.grade }}</td>
+        <td>
+          
+          <span [ngClass]="{'active-badge': student.active, 'inactive-badge': !student.active}"
+                (click)="toggleActive(student)">
+            {{ student.active ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+        <td>
+          
+          <a [routerLink]="['/students', student.id]" class="btn btn-secondary">View</a>
+          <a [routerLink]="['/students/edit', student.id]" class="btn btn-primary">Edit</a>
+          <button (click)="deleteStudent(student.id)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="total-count">Total: {{ filteredStudents.length }} students</p>
+</div>
